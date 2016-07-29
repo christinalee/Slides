@@ -982,7 +982,8 @@ fun Button.debounce(length: Long, unit: TimeUnit) {
   setEnabled(false)
 
   Observable.timer(length, unit)
-    .observeOn(AndroidSchedulers.mainThread()).subscribe {
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe {
 	  setEnabled(true)
     }
 }
