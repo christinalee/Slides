@@ -48,10 +48,10 @@ note: this does not mean Google can't black list it, but it does mean it's harde
 3. Conciseness
 4. Higher order functions
 5. Mutability protection
-6. In line lambdas
+6. Lambdas
 7. Better generics
 
-!!
+!!v
 
 ## Find more at:
 <a href"https://kotlinlang.org/docs/reference/comparison-to-java.html"> https://kotlinlang.org/docs/reference/comparison-to-java.html </a>
@@ -101,7 +101,7 @@ In Kotlin:
 - Includes negative checks & short circuiting
 - Sidenote: global vars
 
-!!
+!!v
 
 # More info: Safe Casts
 
@@ -114,7 +114,7 @@ val x: String = y as String //throws exception if cast fails
 val x: String? = y as? String //null if cast fails
 ```
 
-!!
+!!v
 
 # More info: Vars + Smart Casting
 
@@ -244,7 +244,76 @@ view.setOnClickListener { view: View ->
 
 # 4. Higher order functions
 
-example here
+> Higher order functions are functions which can take as arguments, or return as output, other functions
+
+!!!
+
+# 4. Higher order functions
+
+```
+public inline fun <T> Iterable<T>.forEach(
+	action: (T) -> Unit // <-- input is a function
+): Unit {
+    for (element in this) action(element)
+}
+```
+
+!!!
+
+# 4. Higher order functions
+
+```
+fun <T, R> List<T>.map(transform: (T) -> R): List<R> {
+  val result = arrayListOf<R>()
+  for (item in this)
+    result.add(transform(item))
+  return result
+}
+```
+
+!!!
+
+# 4. Higher order functions
+
+```
+for (i in 0 .. icons.childCount - 1) {
+	var icon : View = icons.getChildAt(i)
+	if (icon is IconView) {
+		resizeIconView(icon)
+	} else {
+		resizeActionView(icon)
+	}
+}
+```
+note: can be as simple as replacing a for loop so no manual indexing, might not seem like a big deal, but no more index out of bounds exceptions
+
+!!!
+
+# 4. Higher order functions
+
+```
+// no more indexing
+icons.childrenSequence().forEach { view: View ->
+	when(view) {
+		is IconView -> resizeIconView(view)
+		else -> resizeActionView(view)
+	}
+}
+``` 
+
+!!!
+
+# 4. Higher order functions
+
+```
+allItems.map { item -> item.icon }
+	.filterNotNull()
+	.forEach { icon: Drawable ->
+            calculateOptimalIconSize(icon)
+        }
+```
+
+note: can also be more complicated
 
 !!!
 
@@ -295,17 +364,46 @@ Kotlin:
 
 !!!
 
-# 6. In line lambdas
+# 6. Lambdas
 
-example here
+Already seen lambdas
+- <a href="#/22">click listeners</a>
+- <a href="#/29">higher order functions</a>
+
+!!!
+
+# 6. Lambdas
+
+Perks
+- can be inlined: <a href="https://kotlinlang.org/docs/reference/inline-functions.html">"performant custom control structures"</a>
+- closures
+
+!!v
+
+# More info: Java 8 lambdas
+
+With limited support for Java 8 being rolled out on Android, you might wonder about J8 lambdas.
+Here is a breakdown of some of the <a href"https://blog.jetbrains.com/kotlin/2016/03/kotlins-android-roadmap/">Kotlin/Java lambda differences</a>.
+Also note <a href="http://bruceeckel.github.io/2015/10/17/are-java-8-lambdas-closures/">Java 8's closure scope</a> is more restrictive than Kotlin's.
+
+!!!
+
+# Inlined functions
+
+- use `inline` keyword
+- avoid object instantiation
+- `return` behavior is `fun` level
+
+note: non-local return
 
 !!!
 
 # 7. Better generics
 
-example here
+TL;DR: Use site variance  
+Read more: <a href="https://kotlinlang.org/docs/reference/generics.html">Kotlin docs</a>
 
-!!!
+!!!  
 
 <!-- .slide: data-background="#5D6FA5" -->
 <!-- .slide: data-state="terminal" -->
@@ -346,10 +444,11 @@ note: runtime is relatively small at 736KB
 - code reviews require only a small startup cost
 - detail work handled by compiler
 
-note: have polled devs to make sure lines are readable, and they always say yes
-note: only really need mutable, null, and (lesser degree) lambdas to get started
-note: Java developers continue to code review me
-note: intracacies of Kotlin are caught by compiler -- nulls, mutability, etc, so are not on CR's shoulders
+note: 
+have polled devs to make sure lines are readable, and they always say yes 
+only really need mutable, null, and (lesser degree) lambdas to get started
+Java developers continue to code review me
+intracacies of Kotlin are caught by compiler -- nulls, mutability, etc, so are not on CR's shoulders
 
 !!!
 
@@ -364,11 +463,12 @@ note: compare to swift/obj c where you need to maintain bridging headers
 
 ## Conversion
 - right click conversion
-- look for !!
+- look for `!!`
 
-note: naive conversion from java compiles down to the same code, so you're exactly where you started
-note: but this can be made better, so go through and clean up
-note: this process will make it very clear how kotlin makes your code better
+note:
+naive conversion from java compiles down to the same code, so you're exactly where you started
+but this can be made better, so go through and clean up
+this process will make it very clear how kotlin makes your code better
 
 !!!
 
