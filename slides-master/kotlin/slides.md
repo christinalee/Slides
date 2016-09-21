@@ -116,18 +116,23 @@ val x: String? = y as? String //null if cast fails
 
 !!v
 
-# More info: Vars + Smart Casting
+# More info: Vars + SC
 
 Smart casting only applies if the compiler can guarantee that the field has not been mutated since the `is` check. 
 From the <a href="https://kotlinlang.org/docs/reference/typecasts.html">Kotlin Docs</a>:
 
-![Smart cast table](insert table here.jpg)
+![Smart cast table](img/kotlin_smart_cast_table.png)
 
 !!!
 
 # 2. Null safety
 
-//Todo: insert happy meme here
+![Giphy joy meme](http://i.giphy.com/11sBLVxNs7v6WA.gif)
+<div align="center" style="font-size:12px">
+via GIPHY
+</div>
+
+
 
 note: Billion dollar problem, cannot over state what a big deal this is
 !!!
@@ -198,7 +203,10 @@ note: more robust example
 
 # 3. Conciseness
 
-//todo: insert gif here
+![Giphy celebration](http://media2.giphy.com/media/3kvYEldEEr0DC/giphy.gif)
+<div align="center"  style="font-size:12px">
+via GIPHY
+</div>
 
 !!!
 
@@ -484,3 +492,11 @@ this process will make it very clear how kotlin makes your code better
 - JVM is not necessarily a savior
 
 !!!
+
+# That's all folks!
+
+Slides posted: <a href"http://bit.ly/2d6WxQl">http://bit.ly/2d6WxQl</a>  
+
+Find me on 
+- Twitter: @RunChristinaRun 
+- Pinterest: pinterest.com/clehrlee
