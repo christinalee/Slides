@@ -748,7 +748,7 @@ After a code review discussion of `for` loops
 
 # That's all folks!
 
-Slides posted: <a href"http://bit.ly/2d6WxQl">http://bit.ly/2d6WxQl</a>  
+Slides posted: <a href="http://bit.ly/2d6WxQl">http://bit.ly/2d6WxQl</a>  
 
 Find me on 
 
