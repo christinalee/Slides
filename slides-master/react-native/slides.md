@@ -155,9 +155,11 @@ React consists of components which usually implement
 
 Typical react component:
 ```
-export class SeparatorView extends Component<SeparatorProps, void>{
+export class SeparatorView 
+	extends Component<SeparatorProps, void>{
   render() {
-    return <View key={this.props.key} style={styles.separatorContainer}>
+    return <View key={this.props.key} 
+		style={styles.separatorContainer}>
       <View style={styles.separator}/>
     </View>;
   }
@@ -362,9 +364,9 @@ note: as RN gets more full featured, this'll get less bad
 # Cross Platform:
 
 Caveat, Pt 2
-- Having a web dev write your mobile app requires the whole app to be RN.  
-- This is only currently possible for trivial cases.
-- When dealing with costly data manipulations, perf must be moved to native code.
+- Having a web dev write your mobile app requires the whole app to be RN
+- This is only currently possible for trivial cases
+- When dealing with costly data manipulations, perf must be moved to native code
 
 note: as RN gets better, this will change
 
@@ -458,9 +460,12 @@ note: so far, everything seems pretty grand. Code push is an unequivical win, an
 
 !!!
 
-## But, wait. Not everything is so easy!
+## But, wait. This doesn't come for free!
 
-todo: add sad puppy gif
+![Giphy disappointment meme](http://i.giphy.com/xT8qBgGCDy7xNvF7Q4.gif)
+<div align="center" style="font-size:12px">
+via GIPHY
+</div>
 
 !!!
 
@@ -503,7 +508,7 @@ JavaScript thread is where
 
 !!!
 
-# Best explanation
+# Threading Model
 
 Simplified 3 thread system:
 1. Main: touch recieved
@@ -511,8 +516,18 @@ Simplified 3 thread system:
 3. Processing: layout calculated
 4. Main: layout executed 
 
-note: best explanation I've heard of comes from Airbnb's Felipe and Leland
-ask if I can use diagram
+note: best explanation I've heard of comes from Airbnb's Felipe and Leland, used with permission 
+
+!!!
+
+# Threading Model
+
+![React Native Threading](img/react_threading.jpg)
+<div align="center" style="font-size:12px">
+via Felipe & Leland, Airbnb
+</div>
+
+
 
 !!!
 
@@ -671,10 +686,11 @@ note: last but not least
 note: to start, we should acknowledge that native will always be faster if done right 
 !!!
 
-## Ships with a JAR, adds to app size
+## Ships with a non-trivial APK, adds to app size
 
 note: an issue on android, because of dex limits
 also note, ships with fresco... if you already have an image library, you don't want a dupe
+also ships with JSCore binaries for both x86 and ARM
 !!!
 
 ## Giving up device power for development speed
@@ -709,7 +725,7 @@ note: severe consequences if you cross this line
 note: most companies already have a deployment system, but code push will have to be added/built out
 !!!
 
-## Most likely will implement a hybrid app, will likely still need specialist
+## Most likely will implement a hybrid app, will likely still need specialists
 
 note: the dream is to have one team who can write for all platforms, but this is unlikely, at least now
 
@@ -719,33 +735,52 @@ note: the dream is to have one team who can write for all platforms, but this is
 
 !!!  
 
-## Faster development loop/hot reloading vs more complicated architecture and communication
+## Faster development loop
+## vs
+## more complicated architecture
 
 !!!
 
-todo: add highlight success story, talk about how much it helped us
-- had to expose our own modules for 3D touch
-- hot fixing is invaluable, saved us from really bad bugs
-- used often for feature development
-- two people on database comms, me on rest of react (database comm is complicated!)
-- given trade offs, deploy to the most likely to change part of your app, leave the rest native
+<!-- .slide: data-background="#5D6FA5" -->
+<!-- .slide: data-state="terminal" -->
+# My experience
 
 !!!
 
-todo: change title to be more reflective of this talk
+## Despite the downsides, we'd do it again.
 
 !!!
 
-todo: add in enging slide
+# Triumphs
+1. Release cycle speedup was crucial
+2. Fixing bugs in the wild is invaluable
+3. Used often for feature development
+	- Led to more exploration!
 
 !!!
 
-ideas:
+# Stumbles
+1. Had to expose our own modules for 3D touch
+2. Had 2 people on DB, one to manage rest of React
+	- DB communication is complicated!
+3. Fought dropped frames in UI
 
-lessons learned in production
-- ships with jar
-- adds to app size
-- not gated by RN keeping up with latest API's because you can expose your own modules -- but harder to do it right/as robustly (talk about 3D touch example)
-- hot fixing is invaluable
-- given trade offs, deploy to the most likely to change part of your app, leave the rest native
-expand the "good things" so this is more even
+!!!
+
+<!-- .slide: data-background="#5D6FA5" -->
+<!-- .slide: data-state="terminal" -->
+# Final Recommendation:
+
+!!!
+
+## Given trade offs, deploy to the most likely to change part of your app, leave the rest native to start
+
+!!!
+
+# That's all folks!
+
+Slides posted: <a href="http://bit.ly/2d6WxQl">http://bit.ly/2d6WxQl</a>
+
+Find me on 
+- Twitter: <a href="twitter.com/runchristinarun">@RunChristinaRun</a>
+- Pinterest: <a href="https://www.pinterest.com/clehrlee/">pinterest.com/clehrlee</a>
