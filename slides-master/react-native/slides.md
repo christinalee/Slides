@@ -779,8 +779,6 @@ note: the dream is to have one team who can write for all platforms, but this is
 
 # That's all folks!
 
-Slides posted: <a href="http://bit.ly/2d6WxQl">http://bit.ly/2d6WxQl</a>
-
 Find me on 
 - Twitter: <a href="twitter.com/runchristinarun">@RunChristinaRun</a>
 - Pinterest: <a href="https://www.pinterest.com/clehrlee/">pinterest.com/clehrlee</a>
