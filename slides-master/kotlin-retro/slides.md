@@ -171,11 +171,9 @@ The integrated codebase gives us the recruiting "easy way out" because they can 
 !!!
 
 - Precedents for when and how to use
-- Integration of disparate skill sets (java devs + kotlin devs side by side)
+- Integration of disparate skill sets
 - Code reviews
 - Linters and style guides
-- Separation of concerns (language choice versus architectural decision) -- changes how you architect solutions
-
 
 !!!
 
@@ -207,9 +205,9 @@ note: revisit this and clean up
 
 # Linters and Style Guides
 
-- talk early and often
-- maintain a living document -- Kotlin is still evolving
-- lever community support
+- Talk early and often
+- Maintain a living document -- Kotlin is still evolving
+- Lever community support
 
 note: lack of style guidelines makes transition harder
 early days of kotlin adoption == less code review oversight
@@ -269,6 +267,8 @@ early days of kotlin adoption == less code review oversight
 !!!
 
 # That's all folks!
+
+Slides at: <a href="http://bit.ly/kotlin-retro">bit.ly/kotlin-retro</a>
 
 Find me on 
 
