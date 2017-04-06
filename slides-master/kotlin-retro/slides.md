@@ -7,12 +7,17 @@ Christina Lee |  Pinterest
 
 !!!
 
-<insert company logos here>
-Square
-Pinterest
-Trello
-NYT 
-(others?)
+<div style="float: left;">
+<img src="img/square_icon.png" alt="Square Logo" style="height: 200px;"/>
+</div>
+
+<div style="float: left;">
+<img src="img/trello_icon.jpeg" alt="Trello Logo" style="height: 200px;"/> 
+</div>
+
+<div style="float: left;">
+<img src="img/nyt_logo.png" alt="NYT Logo" style="height: 200px;"/>
+</div>
 
 !!!
 
@@ -66,9 +71,9 @@ note: 1 year ago, did a retrospective
 
 !!!
 
-- all Kotlin
-- less development bifurcation
-- less release infrastructure 
+- All Kotlin
+- Less development bifurcation
+- Less release infrastructure 
 
 !!!
 
@@ -110,8 +115,8 @@ note: people get least excited about this part, but it's the most influential pi
 # Adoption
 
 Reasons not to force adoption:
-- organic growth is powerful
-- those most excited are best able to bear hardship
+- Organic growth is powerful
+- Those most excited are best able to bear hardship
 
 !!!
 
@@ -119,7 +124,7 @@ Reasons not to force adoption:
 
 Reasons to force adoption:
 - Java frustration/alienation
-- split tooling upkeep, non-reproducible errors
+- Split tooling upkeep, non-reproducible errors
 
 note: need someone on call for java devs
 Java devs update android studio, breaks Kotlin, we only have people looking at Java issues 
@@ -154,7 +159,7 @@ Java devs update android studio, breaks Kotlin, we only have people looking at J
 
 - Advertising: Technical Brand
 - Attraction: Kotlin enthusiasm is often a strong indicator
-- Retention - old dogs, new tricks
+- Retention: Old dogs, new tricks
 
 note: Whether or not Kotlin lasts, the type of people attracted to Kotlin tend to be the same types who keep up with many different new technologies and think critically about their code. 
 The integrated codebase gives us the recruiting "easy way out" because they can do either
@@ -176,9 +181,9 @@ The integrated codebase gives us the recruiting "easy way out" because they can 
 
 # Precedents
 
-- developer's choice, with caveats
-- core code paths
-- highly optimized paths
+- Developer's choice, with caveats
+- Core code paths
+- Highly optimized paths
 
 note: revisit this and clean up
 
@@ -206,14 +211,8 @@ note: revisit this and clean up
 - maintain a living document -- Kotlin is still evolving
 - lever community support
 
-notes: lack of style guidelines makes transition harder
+note: lack of style guidelines makes transition harder
 early days of kotlin adoption == less code review oversight
-!!!
-
-# Style Guides
-
-insert example
-
 !!!
 
 # Tools
@@ -263,17 +262,13 @@ insert example
 
 !!!
 
-Fix
-- My earlier talks about Kotlin
-- Hadi and Svetlana’s talks
-- Reference Trello and NYT
-- Jakes Kotlin talks
+- My <a href="https://www.youtube.com/watch?v=xRDqDe4rxkM">earlier</a> <a href="https://www.youtube.com/watch?v=mDpnc45WwlI">talks</a> about Kotlin
+- <a href="https://www.youtube.com/watch?v=R0J_Jl7bKY8">Hadi</a> and <a href="https://www.youtube.com/watch?v=50lASllvG3Q">Svetlana’s</a> talks
+- <a href="https://www.youtube.com/watch?v=A2LukgT2mKc">Jakes Kotlin talks</a>
 
 !!!
 
 # That's all folks!
-
-Slides posted: <a href="http://bit.ly/2d6WxQl">http://bit.ly/2d6WxQl</a>  
 
 Find me on 
 
