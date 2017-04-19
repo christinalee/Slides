@@ -138,8 +138,9 @@ note:
 
 !!!
 
-## Lesson 2: "Modern" is not an end state
-todo
+## Lesson 2: There will be startup costs
+todo: maybe you aren't as dumb as me, but I forgot I'd need to impl oauth
+todo: budget time for everyone to offer opinions about volley, OkHTTP on its own, and retrofit
 
 !!!
 
@@ -178,7 +179,7 @@ note:
 !!!
 
 ```
-if (!StringUtils.isEmpty(params.emailAddress)) {
+if (params.emailAddress != null) {
 	paramsMap.put("email", params.emailAddress);
 }
 if (params.username != null) {
@@ -194,6 +195,135 @@ note:
 - different login types require different args so can't make them all mandatory
 
 !!!
+
+# "We're a package deal!"
+
+note: 
+- issue 2: login types are closely coupled for no good reason
+- modifying facebook login can very possibly break email login
+
+!!!
+
+```
+@FormUrlEncoded
+@POST("something/facebook/")
+fun facebookSignup(
+  @Field("facebook_id") facebookId: String,
+  @Field("facebook_token") facebookToken: String,
+) : Observable<T>
+
+@FormUrlEncoded
+@POST("something/twitter/")
+fun twitterSignup(
+  @Field("twitter_id") twitterId: String,
+  @Field("twitter_token") twitterToken: String,
+  @Field("twitter_token_secret") twitterTokenSecret: String,
+) : Observable<T>
+```
+
+note: 
+- we're good citizens, so let's fix this/break these up
+
+!!!
+
+# Hurray! We win!
+
+note: 
+- cool, this seems objectively better
+
+!!!
+
+# But...
+
+note: 
+- shared logic across login events
+
+!!!
+
+# Where do we put shared behavior now?
+
+note:
+- not for me to say, developer dependent
+- but you'll need to think about this
+
+!!!
+
+## When adding Retrofit retroactively, switches will be among your most time intensive migrations.
+
+note: this is not a problem when you build with it from the start
+
+!!!
+
+# Lesson 3 (soon to be obsolete): Check your Rx
+
+note: 
+- one of the benefits of Retrofit is exposing streams
+- this was a big reason we wanted to adopt it
+
+!!!
+
+## Are you an Rx1 holdout?
+
+!!!
+
+```
+packagingOptions {
+  exclude 'META-INF/rxjava.properties'
+}
+```
+
+note:
+- not retrofit explicit
+- rx1 and rx2 include the same file
+
+!!!
+
+# Phew!
+
+note: but theres more
+
+!!!
+
+```
+java.lang.IllegalArgumentException: Unable to create call 
+  adapter for io.reactivex.Observable<T<Map<U, V>>>
+```
+
+!!!
+
+``` 
+compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+```
+
+```
+Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+```
+
+!!!
+
+# Lesson 4: With great interceptor power, comes great interceptor responsibility
+
+!!!
+
+## Background: We already used OkHttp
+
+note:
+- but like most things, it didn't start that way and was added later
+- focus on going from Apache to OkHttp
+- didn't take advantage of interceptors even though we could have
+
+!!!
+
+## Interceptors: 
+
+- usually used to add/remove/change headers
+- can also be used for crazy shenanigans like <a href="https://publicobject.com/2016/01/17/sneaking-data-into-an-okhttp-interceptor/">this</a>
+
+
+
+
+
 
 
 
