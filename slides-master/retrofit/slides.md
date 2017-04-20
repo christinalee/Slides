@@ -138,7 +138,7 @@ note:
 
 !!!
 
-## Lesson 2: Be diligent about setup
+## Lesson 1.1: Be diligent about setup
 
 !!!
 
@@ -147,6 +147,7 @@ note:
 note: 
 - one of the benefits of Retrofit is exposing streams
 - this was a big reason we wanted to adopt it
+- fine that old stuff is in RX1, but don't want to write new stuff in it
 
 !!!
 
@@ -157,7 +158,7 @@ packagingOptions {
 ```
 
 note:
-- not retrofit explicit
+- not retrofit explicit, but adding retrofit might bring you to this point
 - rx1 and rx2 include the same file
 
 !!!
@@ -210,6 +211,35 @@ note: difficult because retrofit heavily uses reflection
 note: 
 - from the retrofit docs: http://square.github.io/retrofit/
 - but there are other suggestions out there too
+
+!!!
+
+# Lesson 2: Embrace the interface
+
+!!!
+
+# AKA: Do what's best for *your* app
+
+!!!
+
+# AKA: You do you, boo
+
+!!!
+
+![interface structure screenshot](img/interface_structure.png)
+
+note: 
+- you almost always see retrofit set up in the same way
+- do what's best for your usecase
+- we had a use case were unauth was only needed for login/signup so didn't make sense to have checks in rest of code
+
+!!!
+
+![auth client autocomplete screenshot](img/interface_auth.png) 
+
+!!!
+
+![unauth client autocomplete screenshot](img/interface_unauth.png) 
 
 !!!
 
@@ -598,8 +628,8 @@ note:
 
 !!!
 
-1. Choose your test wisely
-2. It's easy to miss setup steps
+1. Choose your test wisely / 1.1 Don't be dumb (read the directions) 
+2. Embrace the interface
 3. Switch-statements are time sucks
 4. Start thinking in Interceptors
 5. Up your error game
