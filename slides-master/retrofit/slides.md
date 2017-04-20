@@ -104,7 +104,7 @@ note:
 
 !!!
 
-![package apis screenshot](img/package_apis.png)
+<img src="img/package_apis.png" alt="Package Apis Screenshot" style="width: 300px;"/>
 
 note: this begs the question which one do you choose?
 
@@ -138,13 +138,78 @@ note:
 
 !!!
 
-## Lesson 2: There will be startup costs
-todo: maybe you aren't as dumb as me, but I forgot I'd need to impl oauth
-todo: budget time for everyone to offer opinions about volley, OkHTTP on its own, and retrofit
+## Lesson 2: Be diligent about setup
 
 !!!
 
-some bridge
+## Are you an Rx1 holdout?
+
+note: 
+- one of the benefits of Retrofit is exposing streams
+- this was a big reason we wanted to adopt it
+
+!!!
+
+```
+packagingOptions {
+  exclude 'META-INF/rxjava.properties'
+}
+```
+
+note:
+- not retrofit explicit
+- rx1 and rx2 include the same file
+
+!!!
+
+# Phew!
+
+note: but theres more
+
+!!!
+
+```
+java.lang.IllegalArgumentException: Unable to create call 
+  adapter for io.reactivex.Observable<T<Map<U, V>>>
+```
+
+!!!
+
+``` 
+compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+```
+<br>  
+```
+Retrofit.Builder()
+  .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+```
+
+!!!
+
+# Also Proguard
+
+note: difficult because retrofit heavily uses reflection
+
+!!!
+
+> "We recommend you just keep everything in each library until you are comfortable with tweaking and testing the values yourself. Keeping everything is especially useful in complex libraries like this since we rely heavily on reflection for certain aspects of the configuration which breaks with stripping and obfuscation." 
+
+<center>
+\- <a href="https://github.com/square/retrofit/issues/117">JW comment on Github Issues</a>
+</center>
+
+!!!
+
+```
+-dontnote retrofit2.Platform
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Signature
+-keepattributes Exceptions
+```
+
+note: 
+- from the retrofit docs: http://square.github.io/retrofit/
+- but there are other suggestions out there too
 
 !!!
 
@@ -254,54 +319,6 @@ note: this is not a problem when you build with it from the start
 
 !!!
 
-# Lesson 3 (soon to be obsolete): Check your Rx
-
-note: 
-- one of the benefits of Retrofit is exposing streams
-- this was a big reason we wanted to adopt it
-
-!!!
-
-## Are you an Rx1 holdout?
-
-!!!
-
-```
-packagingOptions {
-  exclude 'META-INF/rxjava.properties'
-}
-```
-
-note:
-- not retrofit explicit
-- rx1 and rx2 include the same file
-
-!!!
-
-# Phew!
-
-note: but theres more
-
-!!!
-
-```
-java.lang.IllegalArgumentException: Unable to create call 
-  adapter for io.reactivex.Observable<T<Map<U, V>>>
-```
-
-!!!
-
-``` 
-compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-```
-
-```
-Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-```
-
-!!!
-
 # Lesson 4: With great interceptor power, comes great interceptor responsibility
 
 !!!
@@ -319,6 +336,273 @@ note:
 
 - usually used to add/remove/change headers
 - can also be used for crazy shenanigans like <a href="https://publicobject.com/2016/01/17/sneaking-data-into-an-okhttp-interceptor/">this</a>
+
+!!!
+
+# Christina's Shortcut Guide to Interceptors:
+
+### Check your `get()`/`post()`/`put()` funcs
+
+note: 
+- most of what you will need to build out to interceptors currently resides in these funcs
+
+!!!
+
+# Logic shared by all calls
+
+note:
+- while interceptors can be used for one off things, start with modifications you make to all/most requests
+
+!!!
+
+- Oauth Signing
+- Token 
+
+---
+
+- Auth Signing
+- Refresh 
+
+note: 
+- bare minimum interceptors you'll probably need to add
+
+!!!
+
+# Aside:
+![account services screenshot](img/account_service.png)
+
+note: 
+- context on our setup
+- another way to do this is with headers and annotation
+
+!!!
+
+- Oauth Signing
+- Token 
+
+---
+
+- Auth Signing
+- Refresh 
+
+!!!
+
+- Oauth Signing
+- Token Interceptor
+- Logging
+
+---
+
+- Auth Signing
+- Refresh Interceptor
+- Logging
+
+note: 
+- and of coourse don't forget logging
+- but logging can be pulled in from open source
+
+!!!
+
+# Lesson 5: Who rules the world? Errors!
+
+note:
+- two concerns:
+- who handles validation (error clientside versus malformed call with server returned error) 
+- propogating erorrs
+
+!!!
+
+# Who handles validation?
+
+!!!
+
+```
+if (params.emailAddress != null) {
+	paramsMap.put("email", params.emailAddress);
+}
+if (params.username != null) {
+	paramsMap.put("username", params.username);
+}
+if (params.password != null) {
+	paramsMap.put("password", params.password);
+}
+```
+note: 
+- remember this slide?
+- the structure of our old networking layer pushed us towards server validation
+- this gives flexibility, but there are drawbacks too
+
+!!!
+
+```
+@FormUrlEncoded
+@POST("login/")
+fun loginWithEmail(
+  @Field("username_or_email") usernameOrEmail: String,
+  @Field("password") password: String
+) : Observable<T>
+```
+
+note: 
+- the username or email is no longer optional for this endpt
+- it is not required to move to this way of doing things, but it becomes an easier option
+- nulls will be stripped out
+
+!!!
+
+# While we're here
+
+!!!
+
+# Lifting Errors
+
+note:
+- a networking layer written years ago, likely hasn't been updated to lift errors
+- when rewriting to Retrofit, this can be a big win
+
+!!!
+
+```
+interface Callback<R, E> {
+  void onSuccess(R body);
+  void onClientError(E errorBody);
+  void onServerError(String message);
+  void onUnauthenticated();
+  void onFailure(IOException e);
+}
+```
+\- <a href="https://speakerdeck.com/jakewharton/making-retrofit-work-for-you-droidcon-uk-2016?slide=218">JW @ DroidCon UK '16</a>
+
+note:
+- one proposed solution
+- instead of rewriting these checks over and over, do them once and give the user the least granular action item they need
+
+!!!
+
+# For Rx:
+
+- Connection errors
+- Non 200 error
+- Custom error codes sent with 200 resp
+
+note: RX error handling can be tricky
+
+
+!!!
+
+```
+thing.subscribe(
+  { next -> 
+    if (next.resultCode == 0) { /*handle success*/ } 
+    else { /*handle custom error*/ }
+  },
+  { error -> 
+    // handle connection error
+    // handle non 200 error
+  }
+)
+```
+
+note:
+- can use call adapter to route all errors through on error
+- might not be good (error terminates stream) but it's an option
+
+!!!
+
+```
+thing.subscribe(
+  { next -> 
+    // handle success
+  },
+  { error -> 
+    // handle connection error
+    // handle non 200 error
+    // handle custom error
+  }
+)
+```
+!!!
+
+# Lesson 7: Inheritance based callbacks are a nightmare
+
+note: 
+- assumes Rx call adapter
+- many apps have inheritance overuse issues
+- one of the most perplexing parts of this migration was how to deal with inherited callbacks
+ 
+!!!
+
+```
+HomePinFeedApiResponseHandler
+FeedApiResponseHandler
+ApiResponseHandler
+BaseApiResponseHandler
+Response.Listener/ErrorListener/HeaderListener
+```
+
+!!!
+
+# Simple solution:
+
+```
+HomefeedService.submitLoad(pageSize, 0)
+.subscribeOn(Schedulers.io())
+.subscribe(
+  new SingleObserver<ApiResponse>() {
+    @Override
+    public void onSuccess(ApiResponse value) {
+    // Route to existing handler
+      _homeFeedHandler.onSuccess(value); 
+    }
+  })
+```
+
+!!!
+
+![kick the can cartoon](img/kickthecan.jpg)
+
+note:
+- TADA, we've kicked the can down the road
+- it's important to note that this is a possibility
+- we don't live in a vaccuum
+- practical considerations like this can make or break a project
+
+!!!
+
+# "Real" Solution: Rx Wonderland
+
+!!!
+
+## <insert answer here>
+
+note:
+- would love to give an answer on this, but I'm still trying to settle on my final solution
+
+!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
