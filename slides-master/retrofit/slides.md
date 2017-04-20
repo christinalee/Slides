@@ -481,8 +481,8 @@ note:
 
 # For Rx:
 
-- Connection errors
-- Non 200 error
+- Connection errors (IOException)
+- Non 200 error (HTTPException)
 - Custom error codes sent with 200 resp
 
 note: RX error handling can be tricky
@@ -523,7 +523,7 @@ thing.subscribe(
 ```
 !!!
 
-# Lesson 7: Inheritance based callbacks are a nightmare
+# Lesson 6: Inheritance based callbacks are a nightmare
 
 note: 
 - assumes Rx call adapter
@@ -573,48 +573,48 @@ note:
 
 !!!
 
-## <insert answer here>
+## [insert answer here]
 
 note:
 - would love to give an answer on this, but I'm still trying to settle on my final solution
+- DSL?
 
 !!!
 
+# Lesson 7: If you haven't adopted Kotlin, you're missing out
 
+note: 
+- this is a laugh line, but it really is impressibe how far our tooling has come 
+- includes Rx too
+- in general tools have gotten better
 
+!!!
 
+- nullable types enforce request structure
+- default arguments streamline calls
 
+note: 
+- I tried to do this in Java first, I really did
 
+!!!
 
+1. Choose your test wisely
+2. It's easy to miss setup steps
+3. Switch-statements are time sucks
+4. Start thinking in Interceptors
+5. Up your error game
+6. Rx? Callbacks will need a solution
+7. Kotlin works well with networking
 
+note:
+-recap
+!!!
 
+1. Testing
+2. Mocking/Conditioning
+3. Profiling
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+note: these deserve their own talk
 
 !!!
 
