@@ -620,7 +620,7 @@ note: these deserve their own talk
 
 # That's all folks!
 
-Slides posted: <a href="http://bit.ly/2d6WxQl">http://bit.ly/2d6WxQl</a>  
+Slides posted: <a href="http://bit.ly/retrofit_roboto">bit.ly/retrofit_roboto</a>  
 
 Find me on 
 
